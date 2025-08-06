@@ -8,21 +8,41 @@ function agregarAmigo(){
         alert("Por favor, ingresa un nombre válido.");
         return;
     } else {
-        alert(`Amigo ${nombre} agregado correctamente.`);
         amigos.push(nombre);
-        document.getElementById("amigo").value = "";
+        document.getElementById("amigo").value = "";  
     }
-    alert(`Lista de amigos: ${amigos.join(", ")}`);
+    actualizarListaAmigos();
 }
 
+function actualizarListaAmigos() {
+    const lista = document.getElementById("listaAmigos");
+    lista.innerHTML = "";
+
+    amigos.forEach((amigo) => {
+        const li = document.createElement("li");
+        li.textContent = amigo;
+        lista.appendChild(li);
+    });
+}
+
+
 function sortearAmigo(){
+    const resultado = document.getElementById("resultado");
+    resultado.innerHTML = "";
+
+
     if (amigos.length === 0) {
         alert("No hay amigos para sortear.");
         return;
     } else if (amigos.length === 1) {
-        alert(`El único amigo es: ${amigos[0]}`);
+        const li = document.createElement("li");
+        li.textContent = `El único amigo es: ${amigos[0]}`;
+        resultado.appendChild(li);
         return;
     } else {
-        alert(amigos[Math.floor(Math.random() * amigos.length)]);
+        const ganador = amigos[Math.floor(Math.random() * amigos.length)];
+        const li = document.createElement("li");
+        li.textContent = `El amigo secreto es: ${ganador}`;
+        resultado.appendChild(li);
     }
 }
